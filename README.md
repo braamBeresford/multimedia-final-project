@@ -2,7 +2,7 @@
 ### Group 4 : Braam Beresford (@braamBeresford), Brandon Rawson (@rawsonbr), Longjie Guan (TBD), Shane Sabins (@Inscipio), Tristan Luther (@tristanluther28)
 ### ECE 477 : Multimedia Systems 
 ### Web Documentation: [tristanluther.com/ece477/](https://tristanluther.com/ece477/)
-**This project is a currently under development**
+**This project is currently under development**
 ___
 ## Table of Contents
   - [1. Project Overview](#1-project-overview)
