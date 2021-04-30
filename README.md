@@ -25,7 +25,7 @@ Researchers in 2017 found that people have taken over 1.2 trillion photos due to
 
 | Braam Beresford        | Brandon Rawson | Longjie Guan  | Shane Sabins  | Tristan Luther           |
 | ---------------------- | -------------- | ------------- | ------------- | ------------------------ |
-| HDL DCT implementation | Hello, World!  | Hello, World! | Hello, World! | C Software Implmentation |
+| HDL DCT implementation | Quantization/Zig-Zag  | Header Info/Data Complie/Verilog Testbench | DC & AC Coefficients/Entropy Encoding | C Software Implmentation |
 | Documentation          | Documentation  | Documentation | Documentation | Documentation            |
 
 ## 3. References
