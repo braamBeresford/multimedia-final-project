@@ -1,31 +1,36 @@
 `timescale 1ns / 1ps
 
-module DCT #(parameter DCT_val = 8)(input logic clk,
-			input wire  [7:0] p0 [DCT_val-1:0][DCT_val-1:0], //Oppted for parallel input for improves efficiency
-			input wire  [7:0] p1 [DCT_val-1:0][DCT_val-1:0], //Oppted for parallel input for improves efficiency
+module DCT#(parameter DCT_val = 4)(input logic reset, val_input,
+            input wire  [12:0] A1 [DCT_val-1:0][DCT_val-1:0], //Oppted for parallel input for improves efficiency
+            input wire  [12:0] B1 [DCT_val-1:0][DCT_val-1:0], //Oppted for parallel input for improves efficiency
 
 
-			output logic [7:0] out [DCT_val-1:0][DCT_val-1:0]
-			);
-
-	logic [7:0] macro_block1 [DCT_val-1:0][DCT_val-1:0]; // Matrix that holds the 8x8 block for processing
-	logic [7:0] macro_block2 [DCT_val-1:0][DCT_val-1:0]; // Matrix that holds the 8x8 block for processing
-
-	reg [7:0] result [DCT_val-1:0][DCT_val-1:0]; // Matrix that holds the 8x8 block for processing
+            output logic [12:0] Res1 [DCT_val-1:0][DCT_val-1:0], 
+            output logic val_output
+            );
 
 
-	always_ff @(posedge clk) begin
-		macro_block1 <= p0;
-		macro_block2 <= p1;
-		out <= result;
-	end
-
-	integer i,j,k;
-	always_comb begin
-		  for(i=0;i < DCT_val-1;i=i+1)
-            for(j=0;j < DCT_val-1;j=j+1)
-                for(k=0;k < DCT_val-1;k=k+1)
-                	result[i][j] += macro_block1[i][k] * macro_block2[k][j];
-	end
-
+    integer i,j,k;
+    always@(posedge val_input or posedge reset)
+    begin
+        if(reset)begin
+            i = 0;
+            j = 0;
+           
+            for(i=0;i < DCT_val;i=i+1)
+                for(j=0;j < DCT_val;j=j+1)
+                Res1[i][j] <= 0;
+        end
+        else begin
+                i = 0;
+                j = 0;
+                k = 0;
+                //Matrix multiplication
+                for(i=0;i < DCT_val;i=i+1)
+                    for(j=0;j < DCT_val;j=j+1)
+                        for(k=0;k < DCT_val;k=k+1)
+                            Res1[i][j] = Res1[i][j] + (A1[i][k] * B1[k][j]);
+                        
+            end
+    end 
 endmodule
