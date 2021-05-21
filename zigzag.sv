@@ -1,7 +1,70 @@
-module zigzag(input  logic clk,
-	      input  logic start,
-              input  logic [7:0][7:0][9:0] in_matrix,
-	      output logic [9:0] out_stream,
-	      output logic done);
+module zigzag(input  wire [7:0][7:0] [10:0] in_matrix,
+              output logic [63:0]     [10:0] out_stream);
+
+	// perform zig-zag on 8x8 matrix
+	assign out_stream[0]  = in_matrix[0][0];
+	assign out_stream[1]  = in_matrix[0][1];
+	assign out_stream[2]  = in_matrix[1][0];
+	assign out_stream[3]  = in_matrix[2][0];
+	assign out_stream[4]  = in_matrix[1][1];
+	assign out_stream[5]  = in_matrix[0][2];
+	assign out_stream[6]  = in_matrix[0][3];
+	assign out_stream[7]  = in_matrix[1][2];
+	assign out_stream[8]  = in_matrix[2][1];
+	assign out_stream[9]  = in_matrix[3][0];
+	assign out_stream[10] = in_matrix[4][0];
+	assign out_stream[11] = in_matrix[3][1];
+	assign out_stream[12] = in_matrix[2][2];
+	assign out_stream[13] = in_matrix[1][3];
+	assign out_stream[14] = in_matrix[0][4];
+	assign out_stream[15] = in_matrix[0][5];
+	assign out_stream[16] = in_matrix[1][4];
+	assign out_stream[17] = in_matrix[2][3];
+	assign out_stream[18] = in_matrix[3][2];
+	assign out_stream[19] = in_matrix[4][1];
+	assign out_stream[20] = in_matrix[5][0];
+	assign out_stream[21] = in_matrix[6][0];
+	assign out_stream[22] = in_matrix[5][1];
+	assign out_stream[23] = in_matrix[4][2];
+	assign out_stream[24] = in_matrix[3][3];
+	assign out_stream[25] = in_matrix[2][4];
+	assign out_stream[26] = in_matrix[1][5];
+	assign out_stream[27] = in_matrix[0][6];
+	assign out_stream[28] = in_matrix[0][7];
+	assign out_stream[29] = in_matrix[1][6];
+	assign out_stream[30] = in_matrix[2][5];
+	assign out_stream[31] = in_matrix[3][4];
+	assign out_stream[32] = in_matrix[4][3];
+	assign out_stream[33] = in_matrix[5][2];
+	assign out_stream[34] = in_matrix[6][1];
+	assign out_stream[35] = in_matrix[7][0];
+	assign out_stream[36] = in_matrix[7][1];
+	assign out_stream[37] = in_matrix[6][2];
+	assign out_stream[38] = in_matrix[5][3];
+	assign out_stream[39] = in_matrix[4][4];
+	assign out_stream[40] = in_matrix[3][5];
+	assign out_stream[41] = in_matrix[2][6];
+	assign out_stream[42] = in_matrix[1][7];
+	assign out_stream[43] = in_matrix[2][7];
+	assign out_stream[44] = in_matrix[3][6];
+	assign out_stream[45] = in_matrix[4][5];
+	assign out_stream[46] = in_matrix[5][4];
+	assign out_stream[47] = in_matrix[6][3];
+	assign out_stream[48] = in_matrix[7][2];
+	assign out_stream[49] = in_matrix[7][3];
+	assign out_stream[50] = in_matrix[6][4];
+	assign out_stream[51] = in_matrix[5][5];
+	assign out_stream[52] = in_matrix[4][6];
+	assign out_stream[53] = in_matrix[3][7];
+	assign out_stream[54] = in_matrix[4][7];
+	assign out_stream[55] = in_matrix[5][6];
+	assign out_stream[56] = in_matrix[6][5];
+	assign out_stream[57] = in_matrix[7][4];
+	assign out_stream[58] = in_matrix[7][5];
+	assign out_stream[59] = in_matrix[6][6];
+	assign out_stream[60] = in_matrix[5][7];
+	assign out_stream[61] = in_matrix[6][7];
+	assign out_stream[62] = in_matrix[7][6];
+	assign out_stream[63] = in_matrix[7][7];
 
 endmodule	
