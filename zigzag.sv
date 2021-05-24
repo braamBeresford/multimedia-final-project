@@ -1,4 +1,4 @@
-module zigzag(input  wire [7:0][7:0] [10:0] in_matrix,
+module zigzag(input  wire  [7:0][7:0] [10:0] in_matrix,
               output logic [63:0]     [10:0] out_stream);
 
 	// perform zig-zag on 8x8 matrix

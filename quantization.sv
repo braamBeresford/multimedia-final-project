@@ -1,5 +1,5 @@
-module quantization(input  wire [10:0] in_matrix  [7:0][7:0],
-	            output wire [10:0] out_matrix [7:0][7:0]);
+module quantization(input  wire  [7:0][7:0][10:0] in_matrix,   // add signed to these i/o's?
+	            output logic [7:0][7:0][10:0] out_matrix);
 
 	    // row 0
 	    assign out_matrix[0][0] = in_matrix[0][0] / 16;
