@@ -279,13 +279,14 @@ void DCencoding(float DCcoeff, int *length, unsigned char *compressed_out){
     }
     for(j = (*length)-1; j > ((*length)-cat)-1; j--){
         if(c % 2 == 1){
-            compressed_out[j] = 0x01;
+            compressed_out[j] |= (1<<j);
         }
         else{
-            compressed_out[j] = 0x00;
+            compressed_out[j] |= (0<<j);
         }
         c /= 2;
     }
+    compressed_out[*length] = '\0';
     return;
 }
 
@@ -346,6 +347,7 @@ void ACencoding(int run_length, float code_n, int *length, char *compressed_out)
         }
         c /= 2;
     }
+    compressed_out[*length] = '\0';
     return; 
 }
 
@@ -360,7 +362,7 @@ void AppendHeader(FILE *fp, int dimx, int dimy){
     unsigned char application[16] = {0xFF, 0xE0, 0x00, 0x10, 'J', 'F', 'I', 'F', 0x00, 0x01, 0x01, 0x01, dimx, dimy, 0x00, 0x00};
     fwrite(application, 1, sizeof(application), fp);
     /************************* Quantization/Luminance ************************/
-    unsigned char quantization_lum[69] = {0xFF, 0xDB, 0x00, 0x43, 0x01,
+    unsigned char quantization_lum[69] = {0xFF, 0xDB, 0x00, 0x41, 0x01,
         16,11,10,16,24,40,51,61,
         12,12,14,19,26,58,60,55,
         14,13,16,24,40,57,69,56,
@@ -597,7 +599,7 @@ int main(int argc, char **argv){
     }
 
     //Write all of the image data out to the output file
-    fwrite(writecode, 1, sizeof(writecode), output_fp);
+    fwrite(writecode, 1, strlen(writecode), output_fp);
     
     //Write the end of image byte
     unsigned char eof[2] = {0xFF, 0xD9}; 
