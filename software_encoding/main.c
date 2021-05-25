@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 
 /********************* Macros/Typedef **********************/
 
@@ -439,13 +440,14 @@ void AppendHeader(FILE *fp, int dimx, int dimy){
 /********************* Main **********************/
 int main(int argc, char **argv){
     //Check total number of command line arguments
-    if(argc != 3){
-        printf("Usage: jpeg_encode input_file.ppm output_file.jpg\n");
+    if(argc != 4){
+        printf("Usage: jpeg_encode <input_file>.ppm <output_file> <section>\n");
         return 1;
     }
     //If # of arguments is correct check that the .raw is a file that can be opened
     char *file_name_in = argv[1];
     char *file_name_out = argv[2];
+    char *section_metric = argv[3];
 
     //File pointers to open things up
     FILE *input_fp = fopen(file_name_in, "rb");
@@ -485,6 +487,18 @@ int main(int argc, char **argv){
     unsigned char writecode[80*80*26*32];
     writecode[0] = '\0';
 
+    //Define clock start/stop
+    clock_t start;
+    clock_t stop;
+    //User wants an overall time
+    if(!strcmp(section_metric, "all")){
+        start = clock();
+    }
+    //If the user wants to measure the RGB to YUV encoding time start now
+    if(!strcmp(section_metric, "yuv")){
+        start = clock();
+    }
+
     //Get the image RGB data (each pixel)
     //Declare an array of pixels the size of the image
     unsigned char data[dimx*dimy][3];
@@ -513,6 +527,14 @@ int main(int argc, char **argv){
             l++;
         }
     }
+    //If the user wants to measure the RGB to YUV encoding time start now
+    if(!strcmp(section_metric, "yuv")){
+        stop = clock();
+    }
+    //User wants to measure dct execution time
+    if(!strcmp(section_metric, "dct")){
+        start = clock();
+    }
     //Pass the macroblocks through the DCT
     for(i = 0; i < (macro_x*macro_y); i++){
         //Declare dct var
@@ -524,8 +546,26 @@ int main(int argc, char **argv){
                 macro[i][k][j] = dct[k][j];
             }
         }
-        //Quantize the macroblock
+    }
+    if(!strcmp(section_metric, "dct")){
+        stop = clock();
+    }
+    //User wants to measure dct execution time
+    if(!strcmp(section_metric, "qtz")){
+        start = clock();
+    }
+    //Quantize the macroblock
+    for(i = 0; i < (macro_x*macro_y); i++){
         quantize(macro[i]);
+    }
+    if(!strcmp(section_metric, "qtz")){
+        stop = clock();
+    }
+    if(!strcmp(section_metric, "enc")){
+        start = clock();
+    }
+    //Entropy Encoding
+    for(i = 0; i < (macro_x*macro_y); i++){
         //Zig-zag scan through the block
         float macro_linear[64];
         zigzag(macro[i], macro_linear);
@@ -543,9 +583,18 @@ int main(int argc, char **argv){
             strcat(writecode, compressed_out);
         }
     }
+    if(!strcmp(section_metric, "qtz")){
+        stop = clock();
+    }
 
+    if(!strcmp(section_metric, "hed")){
+        start = clock();
+    }
     //Append the header information to the output file
     AppendHeader(output_fp, dimx, dimy);
+    if(!strcmp(section_metric, "hed")){
+        stop = clock();
+    }
 
     //Write all of the image data out to the output file
     fwrite(writecode, 1, sizeof(writecode), output_fp);
@@ -553,6 +602,14 @@ int main(int argc, char **argv){
     //Write the end of image byte
     unsigned char eof[2] = {0xFF, 0xD9}; 
     fwrite(eof, 1, sizeof(eof), output_fp);
+
+    if(!strcmp(section_metric, "all")){
+        stop = clock();
+    }
+
+    //Calculate the seconds it took to compute the block of interest
+    float seconds = (float)(stop - start) / CLOCKS_PER_SEC;
+    printf("Encoding %s took: %.9f seconds", section_metric, seconds);
 
     //Close the input file
     fclose(input_fp);
