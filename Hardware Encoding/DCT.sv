@@ -1,12 +1,14 @@
 `timescale 1ns / 1ps
 
-module DCT#(parameter DCT_val = 4)(input logic reset, val_input,
-            input wire  [12:0] A1 [DCT_val-1:0][DCT_val-1:0], //Oppted for parallel input for improves efficiency
-            input wire  [12:0] B1 [DCT_val-1:0][DCT_val-1:0], //Oppted for parallel input for improves efficiency
+module DCT#(parameter DCT_val = 8)(input logic reset, val_input,
+            input wire  [12:0] A1 [DCT_val-1:0][DCT_val-1:0], //Opted for parallel input for improves efficiency
+            input wire  [12:0] B1 [DCT_val-1:0][DCT_val-1:0], //Opted for parallel input for improves efficiency
 
+				input wire [12:0] x1,
 
             output logic [12:0] Res1 [DCT_val-1:0][DCT_val-1:0], 
-            output logic val_output
+            output logic val_output,
+				output logic [12:0] y1
             );
 
 
@@ -33,4 +35,7 @@ module DCT#(parameter DCT_val = 4)(input logic reset, val_input,
                         
             end
     end 
+	 
+	 
+	 assign y1=x1/23;
 endmodule
