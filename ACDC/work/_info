@@ -1,0 +1,83 @@
+m255
+K4
+z2
+Z0 !s99 nomlopt
+R0
+R0
+R0
+R0
+R0
+!s11f MIXED_VERSIONS
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 d/home/runner
+T_opt
+!s110 1622495130
+V2DjhC<YP1]z3JF;i_8?bc2
+Z2 04 2 4 work tb fast 0
+=1-000ae431a4f1-60b54f9a-2bcb6-11
+o-quiet -auto_acc_if_foreign -work work +acc=npr
+Z3 tCvgOpt 0
+n@_opt
+OL;O;2020.1_1;71
+R1
+T_opt1
+!s110 1622496300
+Vffg>e<ZML?0XA^aB^zehX1
+R2
+=1-14feb5d10927-60b5542c-9c1fc-730a
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work work
+R3
+n@_opt1
+OL;O;2021.2;73
+vcoeff
+Z4 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+!s110 1622496297
+!i10b 1
+!s100 QP5GE8Eeh`hb`3NT02E282
+I2]T1:E9IB9`25_1]kLB3Q2
+S1
+Z5 d/nfs/stak/users/sabinss/ECE477/multimedia-final-project/ACDC
+w1622496294
+8coeff.sv
+Fcoeff.sv
+!i122 9
+L0 4 844
+Z6 VDg1SIo80bB@j0V0VzS_@n1
+Z7 OL;L;2021.2;73
+r1
+!s85 0
+31
+!s108 1622496297.000000
+!s107 coeff.sv|
+!s90 coeff.sv|
+!i113 0
+R3
+vtb
+R4
+!s110 1622495940
+!i10b 1
+!s100 f7BCLfTaRgF2J=87?W`f@1
+Ilg>5R2PU13A8>6S;bA>@a0
+S1
+R5
+w1622495827
+8testbench.sv
+Ftestbench.sv
+!i122 7
+L0 5 67
+R6
+R7
+r1
+!s85 0
+31
+!s108 1622495939.000000
+!s107 testbench.sv|
+!s90 testbench.sv|
+!i113 0
+R3
